@@ -1,7 +1,9 @@
-p = int(input("enter value for p: "))
-n = int(input("enter value for n: "))
-r = int(input("enter value for r: "))
+fruits = ['apple', 'mango', 'peach', 'orange']
+ap_ind = fruits.index('apple')
+item = 'banana'
 
-si = p*n*r/100
+if item not in fruits:
+    fruits.insert(ap_ind, 'banana')
+fruits.append('chocolate')
 
-print(si)
+print(fruits)
