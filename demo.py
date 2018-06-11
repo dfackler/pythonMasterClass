@@ -1,12 +1,11 @@
-# Create a list of your favorite food items, the list should have minimum 5 elements.
-foods = ['banana', 'chocolate', 'cheese crackers', 'pizza', 'yogurt', 'avocado']
+# Task no 1: Using a for-loop and a range function, print "I am a programmer" 5 times.
+for i in range(5):
+    print('I am a programmer')
 
-# List out the 3rd element in the list.
-print(foods[2])
+# Task no 2: Create a function which displays out the square values of numbers from 1 to 9.
+def square_vals(n):
+    for i in range(1,n):
+        print(i**2)
 
-# Add additional item to the current list and display the list.
-foods.append('ice cream')
 
-# Insert an element named tacos at the 3rd index position of the list and print out the list elements.
-foods.insert(2, 'tacos')
-print(foods)
+square_vals(10)
