@@ -1,9 +1,12 @@
-fruits = ['apple', 'mango', 'peach', 'orange']
-ap_ind = fruits.index('apple')
-item = 'banana'
+# Create a list of your favorite food items, the list should have minimum 5 elements.
+foods = ['banana', 'chocolate', 'cheese crackers', 'pizza', 'yogurt', 'avocado']
 
-if item not in fruits:
-    fruits.insert(ap_ind, 'banana')
-fruits.append('chocolate')
+# List out the 3rd element in the list.
+print(foods[2])
 
-print(fruits)
+# Add additional item to the current list and display the list.
+foods.append('ice cream')
+
+# Insert an element named tacos at the 3rd index position of the list and print out the list elements.
+foods.insert(2, 'tacos')
+print(foods)
