@@ -30,7 +30,8 @@ class Vehicle(object):
             print name + "already in list of owners"
     
     def listOwners(self):
-        return self.owners[:]
+        for o in self.owners:
+            yield o
 
     def isTruck(self):
         return isinstance(self, Truck)
@@ -55,7 +56,7 @@ class Truck(Vehicle):
         return isinstance(self, Truck)
 
     def __str__(self):
-        msg = " ".join(["Truck Specs:", self.make,  self.model, " with" , str(self.wheels), "wheels",
+        msg = " ".join(["Truck Specs:", self.make,  self.model, "with" , str(self.wheels), "wheels",
             "and a bed size of", str(self.bed_size), "square feet"]) 
         return(msg)
 
@@ -65,14 +66,14 @@ print v1
 
 v1.addOwner("jeff")
 v1.addOwner("brian")
-v1.listOwners()
+for o in v1.listOwners():
+    print o
 print v1
 
 v1.isTruck()
 
 v2 = Vehicle("toyota", "prius")
 v2.addMPG(10, 0)
-v2.addOwner(v1.listOwners())
 print v2
 
 t1 = Truck("big", "truck", 16, 1000)
