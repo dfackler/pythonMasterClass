@@ -24,5 +24,14 @@ class TestAddMethods(unittest.TestCase):
     def test_int_count(self):
         self.assertEqual(demo.sumDigits(12345), None)
 
+    def test_even_list(self):
+        self.assertEqual(demo.findAnEven([1,2,3]), 2)
+    
+    def test_odd_list(self):
+        self.assertEqual(demo.findAnEven([1,3,5]), None)
+    
+    def test_string_list(self):
+        self.assertEqual(demo.findAnEven(['list', 1, 2]), None)
+
 if __name__ == '__main__':
     unittest.main()

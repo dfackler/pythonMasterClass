@@ -21,3 +21,15 @@ def sumDigits(s):
     except TypeError:
         print "requires string"
         return(None)
+
+def findAnEven(l):
+    for i in range(len(l)):
+        try:
+            if int(l[i]) % 2 == 0:
+                return(l[i])
+        except ValueError:
+            print("No even number found in list")
+            return(None)
+        except TypeError:
+            print("Input requires list of integers")
+            return(None)
