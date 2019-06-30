@@ -1,3 +1,5 @@
+from matplotlib import pylab
+
 def findPayment(loan, r, m):
     """ Assumes: loan and r are float, m an int 
     Returns the monthly payment for a mortgage of size
@@ -27,6 +29,31 @@ class Mortgage(object):
     
     def __str__(self):
         return self.legend
+    
+    def plotPayments(self, style):
+        pylab.plot(self.paid[1:], style, label = self.legend)
+    
+    def plotBalance(self, style):
+        pylab.plot(self.owed, style, label = self.legend)
+
+    def plotTotPd(self, style):
+        """ Plot the cumulative total of the payments made """
+        totPd = [self.paid[0]]
+        for i in range(1, len(self.paid)):
+            totPd.append(totPd[-1] + self.paid[i])
+        pylab.plot(totPd, style, label = self.legend)
+    
+    def plotNet(self, style):
+        """ Plot an approxmation to the total cost of the mortgage
+        over time by plotting the cash expended minus the equity
+        acquired by paying off part of the loan"""
+        totPd = [self.paid[0]]
+        for i in range(1, len(self.paid)):
+            totPd.append(totPd[-1] + self.paid[i])
+        equityAcquired = pylab.array([self.loan]*len(self.owed))
+        equityAcquired = equityAcquired - pylab.array(self.owed)
+        net = pylab.array(totPd) - equityAcquired
+        pylab.plot(net, style, label = self.legend)
 
 class Fixed(Mortgage):
     def __init__(self, loan, r, months):
@@ -67,10 +94,55 @@ def compareMortages(amt, years, fixedRate, pts, ptsRate, varRate1, varRate2, var
     for m in range(totMonths):
         for mort in morts:
             mort.makePayment()
-    for m in morts:
-        print m
-        print ' Total payments = $' + str(int(m.getTotalPaid()))
+    plotMortgages(morts, amt)
     
+def plotMortgages(morts, amt):
+    styles = ['b-', 'b-.', 'b:']
+    # Give names to the figures
+    payments = 0
+    cost = 1
+    balance = 2
+    netCost = 3
+    
+    pylab.figure(payments)
+    pylab.title('Monthly Payments of Different $' + str(amt) + ' Mortgages')
+    pylab.xlabel('Months')
+    pylab.ylabel('Monthly Payments')
+    
+    pylab.figure(cost)
+    pylab.title('Cash Outlay of Different $' + str(amt) + ' Mortgages')
+    pylab.xlabel('Months')
+    pylab.ylabel('Total Payments')
+
+    pylab.figure(balance)
+    pylab.title('Balance Remaining of $' + str(amt) + ' Mortgages')
+    pylab.xlabel('Months')
+    pylab.ylabel('Remaining Loan Balance of $')
+
+    pylab.figure(netCost)
+    pylab.title('Net Cost of $' + str(amt) + ' Mortgages')
+    pylab.xlabel('Months')
+    pylab.ylabel('Payments - Equity $')
+
+    for i in range(len(morts)):
+        pylab.figure(payments)
+        morts[i].plotPayments(styles[i])
+        pylab.figure(cost)
+        morts[i].plotTotPd(styles[i])
+        pylab.figure(balance)
+        morts[i].plotBalance(styles[i])
+        pylab.figure(netCost)
+        morts[i].plotNet(styles[i])
+
+    pylab.figure(payments)
+    pylab.legend(loc = 'upper center')
+    pylab.figure(cost)
+    pylab.legend(loc = 'best')
+    pylab.figure(balance)
+    pylab.legend(loc = 'best')
+
+    pylab.show()
+
 compareMortages(amt=200000, years=30, fixedRate=0.07,
                 pts=3.25, ptsRate=0.05, varRate1=0.045,
                 varRate2=0.095, varMonths=48)

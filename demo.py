@@ -5,13 +5,13 @@ def simpleAdd(n1, n2):
 def simpleDiv(numerator, divisor):
     try:
         answer = numerator/float(divisor)
-        print answer
+        print(answer)
         return(answer)
     except ZeroDivisionError:
-        print "Cannot enter 0 as divisor"
+        print("Cannot enter 0 as divisor")
         return(None)
     except TypeError:
-        print "Only numerical values are accepted"
+        print("Only numerical values are accepted")
         return(None)
 
 def sumDigits(s):
@@ -19,7 +19,7 @@ def sumDigits(s):
         answer = len(s)
         return(answer)
     except TypeError:
-        print "requires string"
+        print("requires string")
         return(None)
 
 def findAnEven(l):
